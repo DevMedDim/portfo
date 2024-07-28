@@ -5,18 +5,23 @@ import { navigationItems } from "./Navbar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
 
 export default function MobileMenu() {
   const location = usePathname();
+  const [open, setIsOpen] = useState(false);
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={(state) => setIsOpen(state)}>
       <SheetTrigger asChild>
         <Button variant="outline" size="icon" className="text-violet-800">
           <Menu className="w-6 h-6" />
         </Button>
       </SheetTrigger>
-      <SheetContent className="p-4">
-        <div className="flex flex-col gap-4">
+      <SheetContent>
+        <div className="flex flex-col mt-5 space-y-1">
           {navigationItems.map((link) => (
             <Link
               href={link.href}
@@ -24,7 +29,7 @@ export default function MobileMenu() {
               className={cn(
                 location === link.href
                   ? "bg-muted"
-                  : "hover:bg-muted hover:bg-opacity-75",
+                  : "hover:bg-muted hover:bg-opacity-80",
                 "group flex items-center rounded-md px-2 py-2 text-md font-semibold"
               )}
             >
