@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { RegisterLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { Form } from "../components/Form";
 
 export default function Guestbook() {
   return (
@@ -26,11 +27,7 @@ async function GuestbookForm() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
   if (user) {
-    return (
-      <>
-        <h1>Hello dear guest</h1>
-      </>
-    );
+    return <Form />;
   }
 
   return (
